@@ -1,63 +1,63 @@
-$(function () {
+    $(function() {
 
-    /*========方法的调用========*/
-    init();
-    var Data = {};
-    /*========方法的定义========*/
+        // =============方法调用============
+        init();
 
-    /*初始化*/
-    function init() {
-        getInlandDiscount();
-    }
-    /*请求国内折扣数据*/
-    function getInlandDiscount() {
-        $.get(url, function (res) {
-            //用一个中间空对象来存储数据
-            Data = res;
-            console.log(res.result.length)
-            //渲染数据方法的调用
-            render();
+
+        var Data = {};
+        // ================方法定义============
+        function init() {
+            getTOP10Data();
+        }
+        // 熱門品牌排行數據請求
+
+        function getTOP10Data() {
+            $.ajax({
+                url: 'http://139.199.157.195:9090/api/getbrandtitle',
+                success: function(data) {
+                    Data = data;
+                    rendom();
+                }
+            });
+        }
+
+        // 对数据渲染并控制 
+        function rendom() {
+            alert(22)
+            var newData = { result: [] };
+
+            // 页面一打开就加载10条数据
+            if (Data.result.length <= 8) {
+                leng = Data.result.length;
+            }
+            var leng = 10;
+            for (var i = 0; i < leng; i++) {
+                newData.result.push(Data.result.shift());
+            }
+            var html = template('top10Tmp', newData);
+            // 用html会覆盖页面原先的内容
+            $('.contant').append(html);
+        }
+
+        // 页面滚动事件 满足条件就渲染剩下的数据
+        $(window).scroll(function() {
+            if (Data.result.length == 0) {
+                return;
+            }
+            // ul还有剩余的多少没有加载出来
+            // var height = $('.contant > ul').height() + $('#header').height() + $('#footer').height() - $(document.body).height();
+            // console.log('body:' + $(document.body).height());
+            // console.log(window.innerHeight);
+            var dis = window.innerHeight - $(document.body).scrollTop() - 100;
+            // console.log(dis);
+            // 如果剩下的高度不足50 就渲染数据
+            console.log(dis)
+            if (dis < 50) {
+                console.log('数据加载了')
+                rendom();
+            }
         })
-    }
-
-    /*渲染数据*/
-    function render() {
-        //八条数据一组加载
-        var newData = { result: [] };
-        var leng = 8;
-        //当剩余的数据不足八条的时候做一个判断 并给length赋值Data数据的length
-        if (Data.result.length <= 8) {
-            leng = Data.result.length;
-        }
-        for (var i = 0; i < leng; i++) {
-            // 需要加载data.result的第一条数据，并且，加载完了之后 要删除掉第一条数据。然后把剩下的数据都往前面移动一个位
-            // shift:从集合中把第一个元素删除，并返回这个元素的值。
-            newData.result.push(Data.result.shift());
-        }
-        var html = template("模板ID", newData);
-        //这里不能用jquery的html()方法 
-        $("容器盒子").append(html);
-        flag = false;
-    }
-    //加一个开关 防止数据请求时模板有意外的报错 保险做法
-    var flag = false;
-    //窗口滚动事件
-    window.onscroll = function () {
-        当数据加载完 或flag为真 就return 不向下执行了
-        if (Data.result.length == 0 || flag) {
-            return;
-        }
-        // 多余的总高度
-        //要是页面还有其他模块自己添加
-        var height = $("一般是ul").height() + $("页面头部区域").height() + $("页面底部").height() - $(document.body).height();
-        //disBottom表示ul还剩下多少高度         用户滑动的距离
-        var disBottom = height - $(document.body).scrollTop();
-        // console.log(disBottom);
-        //50 可以自己定义
-        if (disBottom < 50) {
-            // console.log("加载数据")
-            flag = true;
-            //数据的渲染
+    });     //数据的渲染
             render();
         }
     }
