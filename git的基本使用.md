@@ -28,7 +28,7 @@
     + 查看文件 ls 或者 ls -a
 
 
-### 自报家门
+### 配置信息
   - 配置用户名 : `git config user.name "testName"`  
   - 配置邮箱   : `git config user.email "test@sina.com"`
   - 查看配置信息: `git config --list`
