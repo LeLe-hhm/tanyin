@@ -25,8 +25,8 @@
 <body>
     <div id="container">
         <!--(.box>img[src="images/P_00$.jpg"])*9-->
-        <div class="box"><img src="images/P_000.jpg" alt="" /></div>
-        <div class="box"><img src="images/P_001.jpg" alt="" /></div>
+  <div class="box"><img src="images/P_000.jpg" alt="" /></div>
+     <div class="box"><img src="images/P_001.jpg" alt="" /></div>
         <div class="box"><img src="images/P_002.jpg" alt="" /></div>
         <div class="box"><img src="images/P_003.jpg" alt="" /></div>
         <div class="box"><img src="images/P_004.jpg" alt="" /></div>
