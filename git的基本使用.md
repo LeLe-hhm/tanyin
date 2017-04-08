@@ -12,7 +12,7 @@
   - BitKeeper(收费)
   - 有人想破解(不给提供免费使用)
   - linus自己写了一个版本管理的工具（Git）
-
+  - 工作区 暂存区 仓库
 
 ### 分布式版本管理工具，集中式
   - git属于分布式
@@ -26,11 +26,11 @@
     + 想在哪个目录创建.git目录，就是哪个目录打开工具然后写命令.
     + 一般是在项目的根目录执行这个命令.
     + 查看文件 ls 或者 ls -a
-
+    + cd 切换路径
 
 ### 配置信息
-  - 配置用户名 : `git config user.name "testName"`  
-  - 配置邮箱   : `git config user.email "test@sina.com"`
+  - 配置用户名 : `git config --global user.name "testName"`  
+  - 配置邮箱   : `git config --global user.email "test@sina.com"`
   - 查看配置信息: `git config --list`
 
 
@@ -91,7 +91,7 @@
 
 ### 创建分支
   - 命令:`git branch [分支名]`
-    + 创建一个新分支
+    + 创建一个新分支 分支名一般是 自己姓名的拼音或首字母+需求号
   - 命令:`git branch`
     + 查看当前所有的分支
 
@@ -99,8 +99,11 @@
   - 命令:`git checkout [分支名]`
     + 切换分支后可以在切换后的分支中进行正常的操作
 
+    创建和切换合在一起操作：'git checkout -b [分支名]'
+
 ### 合并分支
   - 命令:`git merge [分支名]`
+    + 合并分支前先切换到主分支 master 然后在合并
     + git会将指定的分支合并到当前分支.
 
 ### 删除分支
@@ -109,7 +112,7 @@
 
 ### git提交中的冲突
   - 如果git不能自动合并分支，就会有冲突，我们需要手动解决冲突，然后再次提交
-
+  - 同一个文件的同一行在两个分支中不一样
 
 ## github
 ### github与git
@@ -127,16 +130,24 @@
       * 示例:`git remote add origin https://github.com/xxxxxxxxx.git`
       * 这样之后就可以直接使用origin来代替git push 后面写的地址了
         `git push origin master`
+        
   - 还可以尽一步简化
-    + 在push时加上-u参数，就会默认建立本地当前分支与远程指定分支的关联,下一次push时就不需要输入分支名了`git push origin`;
+    + 在push时加上-u参数，就会默认建立本地当前分支与远程指定分支的关联'git push -u origin master',下一次push时就不需要输入分支名了`git push (origin)`;
 
 ## git使用ssh方式上传代码与github
   - git生成公钥和私钥
-    + 命令:`ssh-keygen -t rsa`生成的公钥与私钥文件会在当用户目录的.ssh目录下.
+    + 命令:`ssh-keygen -t rsa`
+    +生成的公钥与私钥文件会在当用户目录的.ssh目录下.
 
 
 ### 把代码push到服务器时需要先pull一下
   - 在pull之后如果远程的代码与本地的代码有冲突，git会先自动合并冲突，如果不能自动合并，就必需我们手动去处理冲突。
+  - confilct 冲突 ：二个版本同一行不一样
+  - rejected ：远程服务器上的代码比本地的代码要新，不管代码是不是一模一样
+    第一种情况：远程服务器和本地一模一样
+    第二种情况：同一个文件的同一行代码 --》冲突
+    第三种情况： 
+
 
 ### 从服务器上pull代码到本地
   - 如果本地没有.git目录，需要先初始化一下。
@@ -149,7 +160,10 @@
 
 
 ### sourceTree , tortoiseGit
-
+  - tortoiseGit 的安装
+    + 生成公钥私钥：安装目录->bin->puttygen.exe 点击生成公钥和私钥 
+    + 公钥保存到github上 私钥保存到除c盘外的其他的地方
+    + 配置tortoiseGit
 http://t.cn/R6tx5jJ
 ### npm
   - 官网[https://www.npmjs.com]
